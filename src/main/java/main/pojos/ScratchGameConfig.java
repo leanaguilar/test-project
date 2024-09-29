@@ -4,6 +4,8 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import main.ScratchGame;
+
 public class ScratchGameConfig {
 
 	int columns;
@@ -61,14 +63,66 @@ public class ScratchGameConfig {
 		return symbol.getRewardMultiplier();
 	}
 
-	public double getWinCombinationRewardMultiplier(Integer value) {
+	public double getWinCombinationRewardMultiplier(Integer count) {
 
 		WinCombination winCombination;
 		double rewardMultiplier = 0;
 		for (Map.Entry<String, WinCombination> entry : this.getWinCombinations().entrySet()) {
 		
 			winCombination = entry.getValue();
+			if (winCombination.getCount() == count) {
+				rewardMultiplier = winCombination.getRewardMultiplier();
+				break;
+			}
+		}
+		
+		return rewardMultiplier;
+	}
+
+	public double getSymbolExtra(String key) {
+		Symbol symbol = this.getSymbols().get(key);
+		return symbol.getExtra();
+	}
+
+	public String getWinCombinationName(Integer value) {
+		
+		WinCombination winCombination;
+		String name = null;
+		for (Map.Entry<String, WinCombination> entry : this.getWinCombinations().entrySet()) {
+		
+			winCombination = entry.getValue();
 			if (winCombination.getCount() == value) {
+				name = entry.getKey();
+				break;
+			}
+		}
+		return name;
+	}
+
+	public double getHorizontalRewardMultiplier() {
+
+        WinCombination winCombination;
+		double rewardMultiplier = 0;
+		for (Map.Entry<String, WinCombination> entry : this.getWinCombinations().entrySet()) {
+		
+			if (entry.getKey().equals(ScratchGame.SAME_SYMBOLS_HORIZONTALLY)) {
+				winCombination = entry.getValue();
+				rewardMultiplier = winCombination.getRewardMultiplier();
+				break;
+			}
+		}
+		
+		return rewardMultiplier;
+	}
+	
+	public double getVerticalRewardMultiplier() {
+
+        WinCombination winCombination;
+		double rewardMultiplier = 0;
+		for (Map.Entry<String, WinCombination> entry : this.getWinCombinations().entrySet()) {
+		
+			if (entry.getKey().equals(ScratchGame.SAME_SYMBOLS_VERTICALLY)) {
+				winCombination = entry.getValue();
 				rewardMultiplier = winCombination.getRewardMultiplier();
 				break;
 			}
