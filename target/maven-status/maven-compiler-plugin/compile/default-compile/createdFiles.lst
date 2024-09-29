@@ -1,0 +1,10 @@
+main\pojos\GameResponse.class
+main\util\SymbolChecker.class
+main\pojos\StandardSymbol.class
+main\pojos\Symbol.class
+main\ScratchGame.class
+main\pojos\WinCombination.class
+main\pojos\Probabilities.class
+main\pojos\BonusSymbols.class
+main\pojos\JsonReader.class
+main\pojos\ScratchGameConfig.class
